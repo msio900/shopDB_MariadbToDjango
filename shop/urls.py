@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
     path('custlist', views.custlist, name='custlist'),
+    path('custdetail', views.custdetail, name='custdetail'),
     path('custadd', views.custadd, name='custadd'),
     path('itemlist', views.itemlist, name='itemlist'),
     path('itemadd', views.itemadd, name='itemadd'),

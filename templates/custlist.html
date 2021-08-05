@@ -6,5 +6,8 @@
 </head>
 <body>
     <h1>CUST LIST Page</h1>
+    {% for c in cl %}
+    <h3><a href="{% url 'custdetail' %}?id={{c.id}}">{{c.id}}  {{c.name}}</a></h3>
+    {% endfor %}
 </body>
 </html>
