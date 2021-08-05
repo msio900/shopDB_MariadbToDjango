@@ -1,15 +1,15 @@
 from frame.db import Db
 from frame.error import ErrorCode
 from frame.sql import Sql
-from frame.value import Cust
+from frame.value import Cust, Item
 
 
-class CustDB(Db):
-    def update(self, pwd, name, id):
+class ItemDB(Db):
+    def update(self, name, price, id):
         try:
             conn = super().getConnection();
             cursor = conn.cursor();
-            cursor.execute(Sql.custupdate % (pwd, name, id));
+            cursor.execute(Sql.itemupdate % (name, price, id));
             conn.commit();
         except:
             conn.rollback();
@@ -22,7 +22,7 @@ class CustDB(Db):
         try:
             conn = super().getConnection();
             cursor = conn.cursor();
-            cursor.execute(Sql.custdelete % id);
+            cursor.execute(Sql.itemdelete % id);
             conn.commit();
         except:
             conn.rollback();
@@ -30,11 +30,12 @@ class CustDB(Db):
         finally:
             super().close(cursor, conn);
 
-    def insert(self, id, pwd, name):
+
+    def insert(self, name, price, imgname):
         try:
             conn = super().getConnection();
             cursor = conn.cursor();
-            cursor.execute(Sql.custinsert % (id, pwd, name));
+            cursor.execute(Sql.iteminsert % (name, price, imgname));
             conn.commit();
         except:
             conn.rollback();
@@ -44,50 +45,48 @@ class CustDB(Db):
 
 
     def selectone(self, id):
-        cust = None;
+        item = None;
         conn = super().getConnection();
         cursor = conn.cursor();
-        cursor.execute(Sql.custlistone % id);
-        c = cursor.fetchone();
-        cust = Cust(c[0], c[1], c[2]);
+        cursor.execute(Sql.itemlistone % id);
+        i = cursor.fetchone();
+        item = Item(i[0], i[1], i[2], i[3], i[4]);
         super().close(cursor, conn); # 꼭 close해줘야~
-        return cust;
-
-
+        return item;
 
     def select(self):
         all = [];
         conn = super().getConnection();
         cursor = conn.cursor();
-        cursor.execute(Sql.custlist); # 어떤 SQL문을 날릴지?
+        cursor.execute(Sql.itemlist); # 어떤 SQL문을 날릴지?
         result = cursor.fetchall();
-        for c in result:
-            cust = Cust(c[0], c[1], c[2]);
-            all.append(cust);
+        for i in result:
+            item = Item(i[0], i[1], i[2], i[3], i[4]);
+            all.append(item);
         super().close(cursor, conn); # 꼭 close해줘야~
         return all;
 
 
 if __name__ == '__main__':
-    result = CustDB().select();
-    for r in result:
-        print(r);
+    # result = ItemDB().select();
+    # for r in result:
+    #     print(r);
 
-    # cust = CustDB().selectone('id01');
-    # print(cust);
-    # try:
-    #     CustDB().insert('id04', 'pwd04', '이말자');
-    #     print('OK');
-    # except:
-    #     print(ErrorCode.e0001)
+    # item = ItemDB().selectone(1001);
+    # print(item);
+    try:
+        ItemDB().insert('1005', 'pwd04', '이말자');
+        print('OK');
+    except:
+        print(ErrorCode.e0001)
 
     # try:
-    #     CustDB().update('pwd04다시', '이길자', 'id05');
+    #     ItemDB().update('pwd04다시', '이길자', 'id05');
     #     print('OK');
     # except:
     #     print(ErrorCode.e0002)
     # try:
-    #     CustDB().delete('id04');
+    #     ItemDB().delete('id04');
     #     print('OK');
     # except:
     #     print(ErrorCode.e0002)
