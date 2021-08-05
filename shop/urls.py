@@ -26,6 +26,8 @@ urlpatterns = [
     path('custdelete', views.custdelete, name='custdelete'),
     path('custadd', views.custadd, name='custadd'),
     path('custaddimpl', views.custaddimpl, name='custaddimpl'),
+    path('custupdateimpl', views.custupdateimpl, name='custupdateimpl'),
+    path('custupdate', views.custupdate, name='custupdate'),
     path('itemlist', views.itemlist, name='itemlist'),
     path('itemadd', views.itemadd, name='itemadd'),
 ]

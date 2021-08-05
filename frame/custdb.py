@@ -5,17 +5,17 @@ from frame.value import Cust
 
 
 class CustDB(Db):
-    def update(self, pwd, name, id):
+    def update(self,id,pwd,name):
         try:
             conn = super().getConnection();
             cursor = conn.cursor();
-            cursor.execute(Sql.custupdate % (pwd, name, id));
+            cursor.execute(Sql.custupdate % (pwd,name,id));
             conn.commit();
         except:
             conn.rollback();
             raise Exception;
         finally:
-            super().close(cursor, conn);
+            super().close(cursor,conn);
 
 
     def delete(self, id):

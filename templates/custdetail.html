@@ -10,6 +10,6 @@
         <h3>{{c.pwd}}</h3>
         <h3>{{c.name}}</h3>
         <a href="{% url 'custdelete'  %}?id={{c.id}}">DELETE<a/>
-        <a href="">UPDATE<a/>
+        <a href="{% url 'custupdate'  %}?id={{c.id}}">UPDATE<a/>
 </body>
 </html>
