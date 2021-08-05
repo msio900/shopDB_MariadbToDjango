@@ -30,18 +30,17 @@ class CustDB(Db):
         finally:
             super().close(cursor, conn);
 
-    def insert(self, id, pwd, name):
+    def insert(self,id,pwd,name):
         try:
             conn = super().getConnection();
             cursor = conn.cursor();
-            cursor.execute(Sql.custinsert % (id, pwd, name));
+            cursor.execute(Sql.custinsert % (id,pwd,name));
             conn.commit();
         except:
             conn.rollback();
             raise Exception;
         finally:
-            super().close(cursor, conn);
-
+            super().close(cursor,conn);
 
     def selectone(self, id):
         cust = None;
@@ -69,17 +68,17 @@ class CustDB(Db):
 
 
 if __name__ == '__main__':
-    result = CustDB().select();
-    for r in result:
-        print(r);
+    # result = CustDB().select();
+    # for r in result:
+    #     print(r);
 
     # cust = CustDB().selectone('id01');
     # print(cust);
-    # try:
-    #     CustDB().insert('id04', 'pwd04', '이말자');
-    #     print('OK');
-    # except:
-    #     print(ErrorCode.e0001)
+    try:
+        CustDB().insert('id04', 'pwd04', '이말자');
+        print('OK');
+    except:
+        print(ErrorCode.e0001)
 
     # try:
     #     CustDB().update('pwd04다시', '이길자', 'id05');

@@ -6,5 +6,12 @@
 </head>
 <body>
     <h1>CUST ADD Page</h1>
+    <form action="{% url 'custaddimpl'  %}" method="post">
+        {% csrf_token %}
+        ID<input type="text" name="id"><br>
+        PWD<input type="text" name="pwd"><br>
+        NAME<input type="text" name="name"><br>
+        <input type="submit" value="ADD">
+    </form>
 </body>
 </html>
