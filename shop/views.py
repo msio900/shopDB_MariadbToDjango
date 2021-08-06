@@ -43,8 +43,13 @@ def inputcart(request):
     itemid = request.GET['itemid'];
     num = request.GET['num'];
     CartDB().insert(custid, int(itemid), int(num));
-    return redirect('itemlist')
+    return redirect('itemlist');
 
+def cartlist(request):
+    custid = request.GET['custid'];
+    cartlist = CartDB().select(custid);
+    context = {'cartlist':cartlist};
+    return render(request, 'cartlist.html', context);
 
 
 def custlist(request):

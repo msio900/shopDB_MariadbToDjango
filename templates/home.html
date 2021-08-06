@@ -11,6 +11,7 @@
     {% else %}
         {{ request.session.logincust.name }}
         <a href="logout">LOGOUT</a>
+        <a href="cartlist?custid={{request.session.logincust.id}}">CART</a>
     {% endif %}
     <h2><a href="{% url 'custlist'%}">CUST LIST</a></h2>
     <h2><a href="{% url 'custadd'%}">CUST ADD</a></h2>

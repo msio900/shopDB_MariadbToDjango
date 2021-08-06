@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <h1>Cart List</h1>
+    {% for c in cartlist %}
+         <h3>{{c.custid}}  {{c.itemid}} {{c.price}} {{c.num}} {{c.total}}</a></h3>
+    {% endfor %}
+</body>
+</html>
