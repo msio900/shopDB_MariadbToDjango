@@ -21,6 +21,10 @@ from shop import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
+
+    path('login', views.login, name='login'),
+    path('loginimpl', views.loginimpl, name='loginimpl'),
+
     path('custlist', views.custlist, name='custlist'),
     path('custdetail', views.custdetail, name='custdetail'),
     path('custdelete', views.custdelete, name='custdelete'),

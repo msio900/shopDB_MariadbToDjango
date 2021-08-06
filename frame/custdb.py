@@ -72,13 +72,13 @@ if __name__ == '__main__':
     # for r in result:
     #     print(r);
 
-    # cust = CustDB().selectone('id01');
-    # print(cust);
-    try:
-        CustDB().insert('id04', 'pwd04', '이말자');
-        print('OK');
-    except:
-        print(ErrorCode.e0001)
+    cust = CustDB().selectone('ii01');
+    print(cust);
+    # try:
+    #     CustDB().insert('id04', 'pwd04', '이말자');
+    #     print('OK');
+    # except:
+    #     print(ErrorCode.e0001)
 
     # try:
     #     CustDB().update('pwd04다시', '이길자', 'id05');

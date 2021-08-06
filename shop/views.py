@@ -13,6 +13,30 @@ from frame.itemdb import ItemDB
 def home(request):
     return render(request, 'home.html');
 
+def login(request):
+    return render(request, 'login.html')
+
+def loginimpl(request):
+    id = request.POST['id'];
+    pwd = request.POST['pwd'];
+    next = 'home.html';
+    try:
+        cust = CustDB().selectone(id);
+        if pwd == cust.pwd:
+            request.session['logincust'] = id;
+            context = None;
+        else:
+            raise Exception;
+    except:
+        context = { 'msg':ErrorCode.e0003 }
+        next = 'error.html';
+    return render(request, next, context)
+
+def logout(request):
+    if request.session['logincust'] != None:
+        del request.session['logincust'];
+    return render(request, 'home.html');
+
 def custlist(request):
     clist = CustDB().select();
     context = {'cl':clist}; # clist를 cl이라는 변수에 넣음
@@ -104,6 +128,26 @@ def itemupdate(request):
     return render(request, 'itemupdate.html', context);
 
 def itemupdateimpl(request):
+    id = request.POST['id'];
+    name = request.POST['name'];
+    price = request.POST['price'];
+    oldimgname = request.POST['oldimgname'];
+    imgname = '';
+    if 'newimg' in request.FILES:
+        newimg = request.FILES['newimg'];
+        imgname = newimg._name;
+        fp = open('%s/%s' % (UPLOAD_DIR, imgname), 'wb')
+        for chunk in newimg.chunks():
+            fp.write(chunk);
+            fp.close();
+    else:
+        imgname = oldimgname;
+
+    ItemDB().update(int(id), name, int(price), imgname)
+    qstr = urlencode({'id': id});
+    return HttpResponseRedirect('%s?%s' % ('itemdetail', qstr));
+
+
 
 
 

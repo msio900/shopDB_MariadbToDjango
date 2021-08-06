@@ -6,6 +6,11 @@
 </head>
 <body>
     <h1>Main Page</h1>
+    {% if request.session.logincust == None %}
+        <a href="login">LOGIN</a>
+    {% else %}
+        <a href="logout">LOGOUT</a>
+    {% endif %}
     <h2><a href="{% url 'custlist'%}">CUST LIST</a></h2>
     <h2><a href="{% url 'custadd'%}">CUST ADD</a></h2>
     <h2><a href="{% url 'itemlist'%}">ITEM LIST</a></h2>

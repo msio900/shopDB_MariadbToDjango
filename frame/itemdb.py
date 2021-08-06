@@ -5,17 +5,17 @@ from frame.value import Cust, Item
 
 
 class ItemDB(Db):
-    def update(self, name, price, id):
+    def update(self,id,name,price,imgname):
         try:
             conn = super().getConnection();
             cursor = conn.cursor();
-            cursor.execute(Sql.itemupdate % (name, price, id));
+            cursor.execute(Sql.itemupdate % (name,price,imgname,id));
             conn.commit();
         except:
             conn.rollback();
             raise Exception;
         finally:
-            super().close(cursor, conn);
+            super().close(cursor,conn);
 
 
     def delete(self, id):
