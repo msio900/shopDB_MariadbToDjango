@@ -14,5 +14,13 @@
     <h3>REGDATE : {{i.regdate}}</h3>
     <h4><a href="{% url 'itemdelete' %}?id={{i.id}}">DELETE</a></h4>
     <h4><a href="{% url 'itemupdate' %}?id={{i.id}}">UPDATE</a></h4>
+    {% if request.session.logincust != None %}
+        <form action="inputcart" method="GET">
+            <input type="hidden" name="custid" value="{{request.session.logincust.id}}">
+            <input type="hidden" name="itemid" value="{{i.id}}">
+            NUM<input type="number" name="num">
+            <input type="submit" value="CART">
+        </form>
+    {% endif %}
 </body>
 </html>

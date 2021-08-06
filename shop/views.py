@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.utils.http import urlencode
 
 from config.settings import UPLOAD_DIR
+from frame.cartdb import CartDB
 from frame.custdb import CustDB
 from frame.error import ErrorCode
 from frame.itemdb import ItemDB
@@ -23,19 +24,28 @@ def loginimpl(request):
     try:
         cust = CustDB().selectone(id);
         if pwd == cust.pwd:
-            request.session['logincust'] = id;
+            request.session['logincust'] =  {'id':cust.id,'name':cust.name};
             context = None;
         else:
-            raise Exception;
+          raise Exception;
     except:
-        context = { 'msg':ErrorCode.e0003 }
+        context = { 'msg':ErrorCode.e0003 };
         next = 'error.html';
-    return render(request, next, context)
+    return render(request, next, context);
 
 def logout(request):
     if request.session['logincust'] != None:
         del request.session['logincust'];
-    return render(request, 'home.html');
+    return render(request,'home.html');
+
+def inputcart(request):
+    custid = request.GET['custid'];
+    itemid = request.GET['itemid'];
+    num = request.GET['num'];
+    CartDB().insert(custid, int(itemid), int(num));
+    return redirect('itemlist')
+
+
 
 def custlist(request):
     clist = CustDB().select();

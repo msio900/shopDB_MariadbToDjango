@@ -10,3 +10,6 @@ class Sql:
     iteminsert = "INSERT INTO item VALUES (NULL, '%s',%d,'%s', CURRENT_DATE())";
     itemdelete = "DELETE FROM item WHERE id= %d ";
     itemupdate = "UPDATE item SET name='%s',price=%d, imgname='%s' WHERE id= %d ";
+
+    cartlist = "";
+    cartinsert = "INSERT INTO cart VALUES (NULL, '%s', '%d', '%d', CURRENT_DATE())";

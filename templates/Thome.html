@@ -9,7 +9,6 @@
     {% if request.session.logincust == None %}
         <a href="login">LOGIN</a>
     {% else %}
-        {{ request.session.logincust.name }}
         <a href="logout">LOGOUT</a>
     {% endif %}
     <h2><a href="{% url 'custlist'%}">CUST LIST</a></h2>
