@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Item Detail Page</h1>
+    <img src="static/img/{{i.imgname}}">
+    <h3>ID : {{i.id}}</h3>
+    <h3>NAME : {{i.name}}</h3>
+    <h3>PRICE : {{i.price}}</h3>
+    <h3>REGDATE : {{i.regdate}}</h3>
+    <h4><a href="{% url 'itemdelete' %}?id={{i.id}}">DELETE</a></h4>
+    <h4><a href="{% url 'itemupdate' %}?id={{i.id}}">UPDATE</a></h4>
+</body>
+</html>

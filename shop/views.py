@@ -4,8 +4,10 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from django.utils.http import urlencode
 
+from config.settings import UPLOAD_DIR
 from frame.custdb import CustDB
 from frame.error import ErrorCode
+from frame.itemdb import ItemDB
 
 
 def home(request):
@@ -60,7 +62,51 @@ def custupdateimpl(request):
     return HttpResponseRedirect('%s?%s' % ('custdetail', qstr));
 
 def itemlist(request):
-    return render(request, 'itemlist.html');
+    items = ItemDB().select();
+    context = {
+        'ilist':items
+    }
+    return render(request, 'itemlist.html', context);
+
+
 def itemadd(request):
     return render(request, 'itemadd.html');
+def itemaddimpl(request):
+    name = request.POST['name'];
+    price = request.POST['price'];
+    imgname = '';
+    if 'img' in request.FILES:
+        img = request.FILES['img'];
+        imgname = img._name;
+        fp = open('%s/%s' % (UPLOAD_DIR, imgname), 'wb')
+        for chunk in img.chunks():
+            fp.write(chunk);
+            fp.close();
+    ItemDB().insert(name, int(price), imgname);
+    return redirect('itemlist')
+
+def itemdetail(request):
+    id = request.GET['id'];
+    item = ItemDB().selectone(int(id));
+    context = { 'i': item }
+    return render(request, 'itemdetail.html', context);
+
+def itemdelete(request):
+    id = request.GET['id'];
+    item = ItemDB().delete(int(id));
+    context = { 'i': item }
+    return rendirect('itemlist');
+
+def itemupdate(request):
+    id = request.GET['id'];
+    item = ItemDB().selectone(int(id));
+    context = { 'i': item }
+    return render(request, 'itemupdate.html', context);
+
+def itemupdateimpl(request):
+
+
+
+
+
 
