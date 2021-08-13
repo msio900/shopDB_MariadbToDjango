@@ -6,6 +6,18 @@ from django.core.exceptions import ImproperlyConfigured
 
 from config.settings import get_secret
 
+# config = {
+#     'database': 'msio900$shopdb',
+#     'user': 'shop_user',
+#     'password': get_secret("DB_PW"),
+#     'host':'127.0.0.1',
+#     'port': 3306,
+#     'charset':'utf8',
+#     'use_unicode':True
+# }
+#
+
+
 config = {
     'database': 'shopdb',
     'user': 'shop_user',
